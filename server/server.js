@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
 const movieModel = require('./movie-model.js');
+const { get } = require('http');
 
 const app = express();
 
@@ -13,22 +14,32 @@ app.use(express.static(path.join(__dirname, 'files')));
 
 // Configure a 'get' endpoint for all movies..
 app.get('/movies', function (req, res) {
-  /* Task 1.2. Remove the line below and eturn the movies from 
-     the model as an array */
-  res.sendStatus(404)
-})
+  const movies = movieModel.getMovies();
+  res.json(Object.values(movies));
+});
 
 // Configure a 'get' endpoint for a specific movie
 app.get('/movies/:imdbID', function (req, res) {
-  /* Task 2.1. Remove the line below and add the 
-    functionality here */
-  res.sendStatus(404)
-})
+  const imdbID = req.params.imdbID;
+  const movie = movieModel.getMovies()[imdbID];
+  if (movie) {
+    res.send(JSON.stringify(movie));
+  } else {
+    res.sendStatus(404);
+  }
+});
 
-/* Task 3.1 and 3.2.
-   - Add a new PUT endpoint
-   - Check whether the movie sent by the client already exists 
-     and continue as described in the assignment */
+// PUT endpoint to update an existing movie
+app.put('/movies/:imdbID', function (req, res) {
+  const imdbID = req.params.imdbID;
+  if (movieModel.updateMovie(imdbID, req.body)) {
+    res.sendStatus(200);
+  } else {
+    const created = movieModel.addMovie(imdbID, req.body);
+    res.status(201).json(created);
+  }
+});
+
 
 app.listen(3000)
 

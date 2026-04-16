@@ -1,13 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Movies!</title>
-    <link rel="stylesheet" href="index.css" />
-    <script src="index.js"></script>
-  </head>
 
-  <body>
-  </body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Movies!</title>
+  <link rel="stylesheet" href="index.css">
+  <script src="index.js"></script>
+
+</head>
+
+<template id="movie-template">
+  <article>
+    <figure>
+      <img alt="Movie Poster">
+    </figure>
+    <section class="movie-body">
+      <header class="movie-header">
+        <h2></h2>
+        <button class="btn-edit" onclick="location.href='edit.html?imdbID=' + this.dataset.imdbID">Edit</button>
+      </header>
+      <p class="movie-meta">
+        <span class="released"></span>
+        <span class="runtime"></span>
+        <span class="rating"></span>
+      </p>
+      <p class="genres"></p>
+      <p class="movie-plot"></p>
+      <footer class="movie-credits">
+        <section class="credit-group directors">
+          <h3>Directors</h3>
+          <ul></ul>
+        </section>
+        <section class="credit-group writers">
+          <h3>Writers</h3>
+          <ul></ul>
+        </section>
+        <section class="credit-group actors">
+          <h3>Actors</h3>
+          <ul></ul>
+        </section>
+      </footer>
+    </section>
+  </article>
+</template>
+
+<body>
+</body>
+
 </html>
